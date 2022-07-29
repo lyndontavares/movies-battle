@@ -1,4 +1,4 @@
-package com.mycompany.models;
+package com.mycompany.models.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

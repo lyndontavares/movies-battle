@@ -10,9 +10,10 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.models.Ranking;
 import com.mycompany.models.User;
+import com.mycompany.models.dto.Ranking;
 import com.mycompany.models.enums.GameStatus;
+import com.mycompany.models.enums.RoundChoice;
 import com.mycompany.repository.UserRepository;
 import com.mycompany.security.jwt.JwtUtils;
 
@@ -50,5 +51,9 @@ public class GameServiceImpl {
 			lista.add(new Ranking( u.getUsername(), u.getScore()));
 		});
 		return lista;
+	}
+	
+	public void round(HttpServletRequest request, RoundChoice choice ) {
+		
 	}
 }

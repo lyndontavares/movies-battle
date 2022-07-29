@@ -1,5 +1,6 @@
 package com.mycompany.models;
 
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,7 @@ import javax.persistence.ManyToOne;
 
 import com.mycompany.models.enums.RoundChoice;
 
+@Entity
 public class Round {
 
 	@Id

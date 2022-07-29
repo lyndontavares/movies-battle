@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.mycompany.models.Movie;
-import com.mycompany.models.MovieWrap;
+import com.mycompany.models.dto.Movie;
+import com.mycompany.models.dto.MovieWrap;
 
 @Service
 public class MovieServiceImpl {
