@@ -2,10 +2,10 @@ package com.mycompany.security.services;
 
 import java.util.Collection;
 import java.util.Objects;
-
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.mycompany.models.GameStatus;
 import com.mycompany.models.User;
 
 public class UserDetailsImpl implements UserDetails {
@@ -15,17 +15,39 @@ public class UserDetailsImpl implements UserDetails {
 
 	private String username;
 
-	public UserDetailsImpl(Long id, String username) {
+	@JsonIgnore
+	private String password;
+	
+	private Double score;
+	
+	private GameStatus status;
+	
+
+	public UserDetailsImpl(Long id, String username, String password, Double score, GameStatus status  ) {
 		this.id = id;
 		this.username = username;
+		this.password = password;
+		this.score = score;
+		this.status = status;
 	}
 
 	public static UserDetailsImpl build(User user) {
-		return new UserDetailsImpl(user.getId(), user.getUsername());
+		return new UserDetailsImpl(user.getId(), user.getUsername(),
+				user.getPassword() , user.getScore(), user.getStatus() );
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
 	}
 
 	public Long getId() {
 		return id;
+	}
+
+	@Override
+	public String getPassword() {
+		return password;
 	}
 
 	@Override
@@ -52,6 +74,14 @@ public class UserDetailsImpl implements UserDetails {
 	public boolean isEnabled() {
 		return true;
 	}
+	
+	public Double getScore() {
+		return score;
+	}
+
+	public GameStatus getStatus() {
+		return status;
+	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -61,15 +91,5 @@ public class UserDetailsImpl implements UserDetails {
 			return false;
 		UserDetailsImpl user = (UserDetailsImpl) o;
 		return Objects.equals(id, user.id);
-	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
-	}
-
-	@Override
-	public String getPassword() {
-		return null;
 	}
 }

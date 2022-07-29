@@ -8,7 +8,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-import com.mycompany.game.services.MovieService;
+import com.mycompany.game.services.MovieServiceImpl;
 
 @SpringBootApplication
 public class SpringBootSecurityLoginApplication {
@@ -23,12 +23,12 @@ public class SpringBootSecurityLoginApplication {
 	}
 
 	@Autowired
-	private MovieService movieService;
+	private MovieServiceImpl movieService;
 	
-	@Bean
-	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
-		movieService.moviesInit(restTemplate);
-		return null;
-	}
+//	@Bean
+//	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+//		movieService.moviesInit(restTemplate);
+//		return null;
+//	}
 
 }

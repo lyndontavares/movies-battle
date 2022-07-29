@@ -12,9 +12,9 @@ import com.mycompany.models.Movie;
 import com.mycompany.models.MovieWrap;
 
 @Service
-public class MovieService {
+public class MovieServiceImpl {
 	
-	private static final Logger log = LoggerFactory.getLogger(MovieService.class);
+	private static final Logger log = LoggerFactory.getLogger(MovieServiceImpl.class);
 	
 	private String API_MOVIES = "https://www.omdbapi.com/";
 	
