@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.game.services.GameServiceImpl;
-import com.mycompany.models.GameStatus;
 import com.mycompany.models.User;
 import com.mycompany.payload.response.MessageResponse;
 

@@ -5,8 +5,8 @@ import java.util.Objects;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.mycompany.models.GameStatus;
 import com.mycompany.models.User;
+import com.mycompany.models.enums.GameStatus;
 
 public class UserDetailsImpl implements UserDetails {
 	private static final long serialVersionUID = 1L;

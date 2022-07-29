@@ -10,9 +10,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.mycompany.models.GameStatus;
 import com.mycompany.models.Ranking;
 import com.mycompany.models.User;
+import com.mycompany.models.enums.GameStatus;
 import com.mycompany.repository.UserRepository;
 import com.mycompany.security.jwt.JwtUtils;
 
