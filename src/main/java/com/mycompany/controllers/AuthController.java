@@ -59,7 +59,7 @@ public class AuthController {
                                    userDetails.getUsername()));
   }
 
-  @PostMapping(value="/signup",consumes = {"*/*"})
+  @PostMapping(value="/signup")
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity.badRequest().body(new MessageResponse("Erro: Nome já cadstrado!"));
@@ -69,7 +69,7 @@ public class AuthController {
 
     userRepository.save(user);
 
-    return ResponseEntity.ok(new MessageResponse("Usuário registrado com sucesso!"));
+    return ResponseEntity.ok(new MessageResponse(String.format("Usuário %s registrado com sucesso!",signUpRequest.getUsername())));
   }
 
   @PostMapping("/signout")
