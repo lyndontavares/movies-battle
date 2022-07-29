@@ -28,7 +28,7 @@ import com.mycompany.security.services.UserDetailsImpl;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping(value="/api/auth")
 public class AuthController {
   @Autowired
   AuthenticationManager authenticationManager;
@@ -59,7 +59,7 @@ public class AuthController {
                                    userDetails.getUsername()));
   }
 
-  @PostMapping("/signup")
+  @PostMapping(value="/signup",consumes = {"*/*"})
   public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
     if (userRepository.existsByUsername(signUpRequest.getUsername())) {
       return ResponseEntity.badRequest().body(new MessageResponse("Error: Username is already taken!"));
