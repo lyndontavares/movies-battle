@@ -1,5 +1,9 @@
 # Movies Battle
 
+
+[![java](https://badges.aleen42.com/src/java.svg)](https://badges.aleen42.com/src/java.svg)
+[![MIT license](http://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](http://opensource.org/licenses/MIT)
+
 Movies Battle - API REST para uma aplicação ao estilo card game com springboot
 
 ## Descrição
