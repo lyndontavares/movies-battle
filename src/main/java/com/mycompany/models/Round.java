@@ -1,5 +1,6 @@
 package com.mycompany.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -7,10 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.mycompany.models.enums.Choice;
 
 @Entity
+@Table(name = "round")
 public class Round {
 
 	@Id
@@ -24,9 +28,11 @@ public class Round {
 
 	private String idFilmeB;
 
+	@Column(length = 1)
 	@Enumerated(EnumType.STRING)
 	private Choice choice;
 
+	@Transient
 	private boolean isMatch;
 
 	public Choice getChoice() {

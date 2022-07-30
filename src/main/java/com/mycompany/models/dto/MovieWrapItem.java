@@ -1,6 +1,6 @@
 package com.mycompany.models.dto;
 
-public class MovieItem {
+public class MovieWrapItem {
 	
 	@Override
 	public String toString() {

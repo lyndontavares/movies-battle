@@ -25,10 +25,10 @@ public class SpringBootMoviesBattle {
 	@Autowired
 	private MovieServiceImpl movieService;
 	
-//	@Bean
-//	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
-//		movieService.moviesInit(restTemplate);
-//		return null;
-//	}
+	@Bean
+	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
+		movieService.moviesInit(restTemplate);
+		return null;
+ 	}
 
 }

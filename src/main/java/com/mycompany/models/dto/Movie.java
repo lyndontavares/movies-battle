@@ -1,5 +1,6 @@
 package com.mycompany.models.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Movie {
@@ -15,10 +16,13 @@ public class Movie {
 
 	private String imdbID; // código
 
+	@JsonIgnore
 	private String imdbVotes; // total de votos
 
+	@JsonIgnore
 	private Double imdbRating; // nota
 
+	@JsonIgnore
 	private Double pontuacao; // total de votos * nota
 
 	public String getTitle() {

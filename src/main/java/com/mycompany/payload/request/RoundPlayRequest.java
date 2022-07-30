@@ -1,10 +1,15 @@
 package com.mycompany.payload.request;
 
+import org.springframework.lang.NonNull;
+
 import com.mycompany.models.enums.Choice;
 
-public class RoundRequest {
+public class RoundPlayRequest {
 
+	@NonNull
 	private Long round;
+	
+	@NonNull
 	private Choice choice;
 
 	public Long getRound() {

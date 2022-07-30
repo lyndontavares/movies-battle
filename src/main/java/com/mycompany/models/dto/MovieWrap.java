@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class MovieWrap {
 	
 	@JsonProperty("Search")
-	private List<MovieItem> search;
+	private List<MovieWrapItem> search;
 	
 	private int totalResults;
 
@@ -19,11 +19,11 @@ public class MovieWrap {
 		this.totalResults = totalResults;
 	}
 
-	public List<MovieItem> getSearch() {
+	public List<MovieWrapItem> getSearch() {
 		return search;
 	}
 
-	public void setSearch(List<MovieItem> search) {
+	public void setSearch(List<MovieWrapItem> search) {
 		this.search = search;
 	}
 

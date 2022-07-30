@@ -1,5 +1,6 @@
 package com.mycompany.models;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -9,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.mycompany.models.enums.GameStatus;
@@ -16,6 +18,7 @@ import com.mycompany.models.enums.GameStatus;
 @Entity
 @Table(name = "users", uniqueConstraints = { @UniqueConstraint(columnNames = "username") })
 public class User {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -27,10 +30,14 @@ public class User {
 	@NotBlank
 	@Size(max = 120)
 	private String password;
-
-	private Double score;
+	
+	private int contaadorErros;
+	
+	private double score;
 
 	@Enumerated(EnumType.STRING)
+	@Column(length = 11)
+    @NotNull
 	private GameStatus status;
 
 	public User() {
@@ -39,6 +46,7 @@ public class User {
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
+		this.status= GameStatus.NAO_JOGANDO;
 	}
 
 	public Long getId() {
@@ -65,11 +73,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Double getScore() {
+	public double getScore() {
 		return score;
 	}
 
-	public void setScore(Double score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 
@@ -79,6 +87,14 @@ public class User {
 
 	public void setStatus(GameStatus status) {
 		this.status = status;
+	}
+
+	public int getContaadorErros() {
+		return contaadorErros;
+	}
+
+	public void setContaadorErros(int contaadorErros) {
+		this.contaadorErros = contaadorErros;
 	}
 
 }

@@ -2,13 +2,17 @@ package com.mycompany.game.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.mycompany.models.dto.Movie;
+import com.mycompany.models.dto.MovieRound;
 import com.mycompany.models.dto.MovieWrap;
 
 @Service
@@ -24,6 +28,14 @@ public class MovieServiceImpl {
 	// Mantém a lista de filmes 
 	private List<Movie> movies;
 
+	/**
+	 * moviesInit
+	 * 
+	 * @description Inicia banco de filmes pegando da api: https://www.omdbapi.com/
+	 * @Regra#01 Ao iniciar aplicação é preparado a lista de filmes que será utilizada no Game
+	 * @param restTemplate
+	 * @throws Exception
+	 */
 	public void moviesInit(RestTemplate restTemplate) throws Exception {
 		
 		//1. Inicializa lista de filmes
@@ -42,11 +54,51 @@ public class MovieServiceImpl {
 			log.info(movie.toString());
 		});
 	}
+	
+	/**
+	 * getMovies
+	 * 
+	 * @description Retorna lista de filmes
+	 * @return
+	 */
 
 	public List<Movie> getMovies() {
 		return movies;
 	};
 	
+
+	/**
+	 * getMovieRound
+	 * 
+	 * @description returna dupla de filmes para rodada
+	 * @Regra#01 Pega aleatoriamente
+	 * @Regra#02 Não pode repetir
+	 * @return
+	 */
+	public MovieRound getMovieRound() {
+		
+		if (movies.size() == 0 ) {
+			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Falha carregando Movies!");
+		}
+		
+		MovieRound round = new MovieRound();
+		
+		Random rand = new Random();
+		int movieA = 0;
+		int movieB = 0;
+		int totalMovies = movies.size();
+
+		while ( movieA == movieB ) {
+			movieA = rand.nextInt(totalMovies);
+			movieB = rand.nextInt(totalMovies);
+		}
+
+		round.setMovieA( movies.get(movieA) );
+		round.setMovieB( movies.get(movieB) );
+		
+		return round;
+		
+	}
 	
 
 }

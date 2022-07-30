@@ -1,5 +1,5 @@
 package com.mycompany.models.enums;
 
 public enum GameStatus {
-  JOGANDO,FINALIZADO
+  JOGANDO,NAO_JOGANDO
 }

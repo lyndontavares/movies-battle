@@ -67,7 +67,7 @@ public class AuthController {
 				.body(new UserInfoResponse(userDetails.getId(), userDetails.getUsername()));
 	}
 
-	@ApiOperation(value = "Cadastro de novo jogador")
+	@ApiOperation(value = "Registro de novo jogador")
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Retorna mensagem jogador cadastrado"),
 			@ApiResponse(code = 403, message = "Você não tem permissão para acessar este recurso"),
 			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
@@ -82,7 +82,7 @@ public class AuthController {
 		userRepository.save(user);
 
 		return ResponseEntity.ok(
-				new MessageResponse(String.format("Usuário %s registrado com sucesso!", signUpRequest.getUsername())));
+				new MessageResponse(String.format("Jogador %s registrado com sucesso!", signUpRequest.getUsername())));
 	}
 
 	@ApiOperation(value = "Desconectar jogador")
