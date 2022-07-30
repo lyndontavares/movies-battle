@@ -2,6 +2,7 @@ package com.mycompany.game.services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import org.slf4j.Logger;
@@ -66,7 +67,16 @@ public class MovieServiceImpl {
 		return movies;
 	};
 	
-
+	/**
+	 * getMovie
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public  Optional<Movie> getMovie(String id) {
+		return movies.stream().filter(f->f.getImdbID()==id).findFirst();
+	}
+	
 	/**
 	 * getMovieRound
 	 * 

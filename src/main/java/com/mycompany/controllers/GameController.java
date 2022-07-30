@@ -74,8 +74,7 @@ public class GameController {
 			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
 	@PostMapping("/play")
 	public ResponseEntity<?> playRound(HttpServletRequest request, @Valid @RequestBody RoundPlayRequest roundPlayRequest) {
-
-		return ResponseEntity.ok("play");
+		return ResponseEntity.ok(gameService.playRound(request, roundPlayRequest));
 	}
 
 }

@@ -16,8 +16,9 @@ import org.springframework.web.server.ResponseStatusException;
 import com.mycompany.models.Round;
 import com.mycompany.models.User;
 import com.mycompany.models.dto.MovieRound;
-import com.mycompany.models.enums.Choice;
 import com.mycompany.models.enums.GameStatus;
+import com.mycompany.payload.request.RoundPlayRequest;
+import com.mycompany.payload.request.RoundPlayRespond;
 import com.mycompany.payload.request.RoundReadResponse;
 import com.mycompany.payload.response.RankingResponse;
 import com.mycompany.repository.RoundRepository;
@@ -85,10 +86,22 @@ public class GameServiceImpl {
 	 * @param choice
 	 * @return
 	 */
-	public User playRound(HttpServletRequest request, Choice choice) {
+	public RoundPlayRespond playRound(HttpServletRequest request, RoundPlayRequest roundPlayRequest) {
 		User user = getUser(request);
+		RoundPlayRespond respond = new RoundPlayRespond();
 
-		return user;
+		//recupera info do round
+		Round round = roundRepository.getById(roundPlayRequest.getRound() );
+		
+		//valida round
+		if ( round.getId() == 0 ) {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Round não existe! Informe corretamente o RoundID");
+		}
+		
+		//prepara resposta
+		respond.setMovie( movieService.getMovie(round.getIdFilmeA()).get() );
+		
+		return respond;
 	}
 
 	/**
