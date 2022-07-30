@@ -20,10 +20,10 @@ public class Movie {
 	private String imdbVotes; // total de votos
 
 	@JsonIgnore
-	private Double imdbRating; // nota
+	private double imdbRating; // nota
 
 	@JsonIgnore
-	private Double pontuacao; // total de votos * nota
+	private double pontuacao; // total de votos * nota
 
 	public String getTitle() {
 		return title;
@@ -65,11 +65,11 @@ public class Movie {
 		this.imdbVotes = imdbVotes;
 	}
 
-	public Double getImdbRating() {
+	public double getImdbRating() {
 		return imdbRating;
 	}
 
-	public void setImdbRating(Double imdbRating) {
+	public void setImdbRating(double imdbRating) {
 		this.imdbRating = imdbRating;
 	}
 
@@ -78,8 +78,9 @@ public class Movie {
 	 * 
 	 * @apiNote Casting para Double no atruito imdbVotes
 	 */
-	public Double getPontuacao() {
-		return imdbRating * Double.valueOf(imdbVotes.replace(",", ""));
+	public double getPontuacao() {
+		double  votes = imdbVotes == null ? 0 : Double.valueOf(imdbVotes.replace(",", "")).doubleValue();
+		return imdbRating * votes;
 	}
 
 	@Override

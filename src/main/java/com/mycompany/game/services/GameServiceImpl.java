@@ -256,7 +256,7 @@ public class GameServiceImpl {
 	}
 	
 	private Choice melhorPontuacao(MovieRound movieRound) {
-		if ( movieRound.getMovieA().getPontuacao().doubleValue() > movieRound.getMovieB().getPontuacao().doubleValue() ) {
+		if ( movieRound.getMovieA().getPontuacao()> movieRound.getMovieB().getPontuacao() ) {
 			return Choice.A;
 		} else {
 			return Choice.B;
