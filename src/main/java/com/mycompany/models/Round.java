@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import com.mycompany.models.enums.RoundChoice;
+import com.mycompany.models.enums.Choice;
 
 @Entity
 public class Round {
@@ -25,15 +25,15 @@ public class Round {
 	private String idFilmeB;
 
 	@Enumerated(EnumType.STRING)
-	private RoundChoice choice;
+	private Choice choice;
 
 	private boolean isMatch;
 
-	public RoundChoice getChoice() {
+	public Choice getChoice() {
 		return choice;
 	}
 
-	public void setChoice(RoundChoice choice) {
+	public void setChoice(Choice choice) {
 		this.choice = choice;
 	}
 

@@ -1,6 +1,6 @@
-package com.mycompany.models.dto;
+package com.mycompany.payload.response;
 
-public class Ranking {
+public class RankingResponse {
 	
 	private String nome;
 
@@ -22,7 +22,7 @@ public class Ranking {
 		this.pontuacao = pontuacao;
 	}
 
-	public Ranking(String nome, Double pontuacao) {
+	public RankingResponse(String nome, Double pontuacao) {
 		super();
 		this.nome = nome;
 		this.pontuacao = pontuacao;

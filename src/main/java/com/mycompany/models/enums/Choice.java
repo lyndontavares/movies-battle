@@ -1,5 +1,5 @@
 package com.mycompany.models.enums;
 
-public enum RoundChoice {
+public enum Choice {
 	A, B
 }

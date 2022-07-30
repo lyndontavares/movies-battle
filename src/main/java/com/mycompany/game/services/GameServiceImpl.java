@@ -11,9 +11,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.mycompany.models.User;
-import com.mycompany.models.dto.Ranking;
 import com.mycompany.models.enums.GameStatus;
-import com.mycompany.models.enums.RoundChoice;
+import com.mycompany.payload.response.RankingResponse;
+import com.mycompany.models.enums.Choice;
 import com.mycompany.repository.UserRepository;
 import com.mycompany.security.jwt.JwtUtils;
 
@@ -33,27 +33,35 @@ public class GameServiceImpl {
 		return user;
 	}
 
-	public void finilarGame(User user) {
+	public User finalizarGame(HttpServletRequest request) {
+		User user = getUser(request);
 		user.setStatus(GameStatus.FINALIZADO);
 		userRepository.save(user);
+		return user;
 	}
-	
-	public void iniciarGame(User user) {
+
+	public User iniciarGame(HttpServletRequest request) {
+		User user = getUser(request);
+		user.setScore(Double.valueOf(0));
 		user.setStatus(GameStatus.JOGANDO);
 		userRepository.save(user);
+		return user;
 	}
-	
-	public List<Ranking> ranking() {
+
+	public User playRound(HttpServletRequest request, Choice choice) {
+		User user = getUser(request);
 		
-		List<Ranking> lista = new ArrayList<>();
-		
-		userRepository.findAll(Sort.by(Sort.Direction.ASC, "score")).forEach(u->{
-			lista.add(new Ranking( u.getUsername(), u.getScore()));
+		return user;
+	}
+
+	public List<RankingResponse> ranking() {
+
+		List<RankingResponse> lista = new ArrayList<>();
+
+		userRepository.findAll(Sort.by(Sort.Direction.ASC, "score")).forEach(u -> {
+			lista.add(new RankingResponse(u.getUsername(), u.getScore()));
 		});
 		return lista;
 	}
-	
-	public void round(HttpServletRequest request, RoundChoice choice ) {
-		
-	}
+
 }
