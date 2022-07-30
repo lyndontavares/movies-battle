@@ -96,5 +96,13 @@ public class User {
 	public void setContaadorErros(int contaadorErros) {
 		this.contaadorErros = contaadorErros;
 	}
+	
+	public void incrementarScore() {
+		score += score;
+	}
+	
+	public void incrementarErros() {
+		contaadorErros += contaadorErros;
+	}
 
 }

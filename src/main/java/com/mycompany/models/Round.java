@@ -4,12 +4,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
 
 import com.mycompany.models.enums.Choice;
 
@@ -21,19 +23,26 @@ public class Round {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne
+	@ManyToOne(fetch =FetchType.EAGER )
 	private User user;
 
 	private String idFilmeA;
 
 	private String idFilmeB;
 
+	@NotNull
 	@Column(length = 1)
 	@Enumerated(EnumType.STRING)
 	private Choice choice;
 
+	
+	@NotNull
+	@Column(length = 1)
+	@Enumerated(EnumType.STRING)
+	private Choice choiceAnswer;
+	
 	@Transient
-	private boolean isMatch;
+	private boolean isCorrectAnswer;
 
 	public Choice getChoice() {
 		return choice;
@@ -74,9 +83,17 @@ public class Round {
 	public void setIdFilmeB(String idFilmeB) {
 		this.idFilmeB = idFilmeB;
 	}
+ 
+	public Choice getChoiceAnswer() {
+		return choiceAnswer;
+	}
 
-	public boolean isMatch() {
-		return idFilmeA!=null && idFilmeB!=null && idFilmeA.equals(idFilmeB) ;
+	public void setChoiceAnswer(Choice choiceAnswer) {
+		this.choiceAnswer = choiceAnswer;
+	}
+
+	public boolean isCorrectAnswer() {
+		return  choice.equals(choiceAnswer) ;
 	}
 
 

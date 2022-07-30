@@ -2,7 +2,7 @@ package com.mycompany.payload.request;
 
 import com.mycompany.models.dto.Movie;
 
-public class RoundPlayRespond {
+public class RoundPlayResponse {
 
 	private boolean acertou;
 	
