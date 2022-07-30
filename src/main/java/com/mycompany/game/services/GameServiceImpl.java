@@ -26,24 +26,17 @@ public class GameServiceImpl {
 	@Autowired
 	UserRepository userRepository;
 
-	public User getUser(HttpServletRequest request) {
-		String username = jwtUtils.getUserNameFromJwtToken(jwtUtils.getJwtFromCookies(request));
-		User user = userRepository.findByUsername(username)
-				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado para o nome: " + username));
+	public User iniciarGame(HttpServletRequest request) {
+		User user = getUser(request);
+		user.setScore(Double.valueOf(0));
+		user.setStatus(GameStatus.JOGANDO);
+		userRepository.save(user);
 		return user;
 	}
 
 	public User finalizarGame(HttpServletRequest request) {
 		User user = getUser(request);
 		user.setStatus(GameStatus.FINALIZADO);
-		userRepository.save(user);
-		return user;
-	}
-
-	public User iniciarGame(HttpServletRequest request) {
-		User user = getUser(request);
-		user.setScore(Double.valueOf(0));
-		user.setStatus(GameStatus.JOGANDO);
 		userRepository.save(user);
 		return user;
 	}
@@ -62,6 +55,13 @@ public class GameServiceImpl {
 			lista.add(new RankingResponse(u.getUsername(), u.getScore()));
 		});
 		return lista;
+	}
+
+	private User getUser(HttpServletRequest request) {
+		String username = jwtUtils.getUserNameFromJwtToken(jwtUtils.getJwtFromCookies(request));
+		User user = userRepository.findByUsername(username)
+				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado para o nome: " + username));
+		return user;
 	}
 
 }

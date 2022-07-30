@@ -11,10 +11,10 @@ import org.springframework.web.client.RestTemplate;
 import com.mycompany.game.services.MovieServiceImpl;
 
 @SpringBootApplication
-public class SpringBootSecurityLoginApplication {
+public class SpringBootMoviesBattle {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootSecurityLoginApplication.class, args);
+		SpringApplication.run(SpringBootMoviesBattle.class, args);
 	}
 
 	@Bean

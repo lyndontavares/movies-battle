@@ -32,8 +32,7 @@ public class GameController {
 			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
 	@PostMapping("/finish")
 	public ResponseEntity<?> finalizarGame(HttpServletRequest request) {
-		User user = gameService.getUser(request);
-		
+		User user = gameService.finalizarGame(request);
 		return ResponseEntity.ok(new MessageResponse(String.format("%s, Game Finalizado!",user.getUsername())));
 	}
 
@@ -43,9 +42,7 @@ public class GameController {
 			@ApiResponse(code = 500, message = "Foi gerada uma exceção"), })
 	@PostMapping("/start")
 	public ResponseEntity<?> iniciarrGame(HttpServletRequest request) {
-
-		User user = gameService.getUser(request);
-		
+		User user = gameService.iniciarGame(request);
 		return ResponseEntity.ok(new MessageResponse(String.format("%s, Game Iniciado!",user.getUsername())));
 	}
 
