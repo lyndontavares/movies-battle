@@ -203,7 +203,7 @@ public class GameServiceImpl {
 	 * @param request
 	 * @return
 	 */
-	private User getUser(HttpServletRequest request) {
+	public User getUser(HttpServletRequest request) {
 		String username = jwtUtils.getUserNameFromJwtToken(jwtUtils.getJwtFromCookies(request));
 		User user = userRepository.findByUsername(username)
 				.orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado para o nome: " + username));

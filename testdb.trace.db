@@ -146,3 +146,15 @@ Caused by: org.h2.jdbc.JdbcSQLNonTransientConnectionException: The connection wa
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:622)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:429)
 	... 91 more
+2022-07-30 07:43:13 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'JOGANDO' (USERS: ""STATUS"" INTEGER)"; SQL statement:
+update users set password=?, score=?, status=?, username=? where id=? [22018-200]
+2022-07-30 07:45:40 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'JOGANDO' (USERS: ""STATUS"" INTEGER)"; SQL statement:
+update users set password=?, score=?, status=?, username=? where id=? [22018-200]
+2022-07-30 07:53:27 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'JOGANDO' (USERS: ""STATUS"" INTEGER)"; SQL statement:
+update users set password=?, score=?, status=?, username=? where id=? [22018-200]
+2022-07-30 07:58:52 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Data conversion error converting "'JOGANDO' (USERS: ""STATUS"" INTEGER)"; SQL statement:
+update users set password=?, score=?, status=?, username=? where id=? [22018-200]

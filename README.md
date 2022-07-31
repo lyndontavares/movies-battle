@@ -72,6 +72,24 @@ Abra no browser
 
 ## Roteiro de teste endpoints da API
 
+Abaixo, fluxo para testes da API:
+
+### Caminho Feliz
+
+```bash
+
+[POST] /api/auth/signup (registro novo jogador)
+[POST] /api/auth/signin (conectar)
+
+[POST] /api/game/start (iniciar game)
+[GET] /api/game/play (pegar rodada(round))
+[POST] /api/game/play  (encamnhar resposta da rodada(round))
+
+[POST] /api/game/finish (finalizar game)
+[POST] /api/game/ranking (consultar ranking)
+[POST] /api/auth/signout (desconectar)
+
+```
 
 ## Aviso
 
