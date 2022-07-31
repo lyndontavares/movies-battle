@@ -34,12 +34,20 @@ b. Os seguintes pares são válidos: [A-B, B-C] o filme B é usado em pares dife
 7. Escolha a solução de autenticação que achar mais interessante. Crie pelo menos dois usuários/jogadores.
 
 
-## Build sem testes
+## Build
 
 Na linha de comando, execute:
 
 ```bash
+[SEM TESTES] [SEM TESTE COBERTURA]
+
 mvn clean install -DskipTests -Djacoco.skip=true
+```
+
+```bash
+[COM TESTES] [COM TESTE COBERTURA]
+
+mvn clean install
 ```
 
 ## Subir API Movies Battle
