@@ -32,3 +32,53 @@ b. Os seguintes pares são válidos: [A-B, B-C] o filme B é usado em pares dife
 5. Escreva testes unitários (para validar as regras de negócio) e de integração (para validar a API). Cobertura de testes mínima: 80% dos métodos.
 6. Não deixe de adicionar a documentação da API com base no OpenAPI 3.0.
 7. Escolha a solução de autenticação que achar mais interessante. Crie pelo menos dois usuários/jogadores.
+
+
+## Build sem testes
+
+Na linha de comando, execute:
+
+```bash
+mvn clean install -DskipTests -Djacoco.skip=true
+```
+
+## Subir API Movies Battle
+
+```bash
+mvn spring-boot:run
+```
+
+## Documentação da API com Swagger
+
+Abra no browser:
+
+```
+http://localhost:3000/swagger-ui.html
+```
+
+## Teste de Cobertura
+
+Para executar teste de cobertura:
+
+```bash
+mvn clean verify
+```
+
+Abra no browser
+
+```
+\target\site\jacoco\index.html
+```
+
+## Roteiro de teste endpoints da API
+
+
+## Aviso
+
+Este projeto é parte do teste para Let's Code - Formação em Programação.
+Está sob a licensa do MIT.
+
+## Contato
+
+integraldominio@gmail.com
+https://www.linkedin.com/in/lyndon-tavares/

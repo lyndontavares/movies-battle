@@ -90,6 +90,9 @@ public class GameServiceImpl {
 	 * @return
 	 */
 	public RoundPlayResponse playRound(HttpServletRequest request, RoundPlayRequest roundPlayRequest) {
+		
+		int MAXIMO_ERROS = 3;
+		
 		User user = getUser(request);
 
 		RoundPlayResponse response = new RoundPlayResponse();
@@ -119,13 +122,20 @@ public class GameServiceImpl {
 			user.incrementarErros();
 		}
 
+		// verifica máximo de erros para finaliza game
+		if ( user.getContaadorErros() == MAXIMO_ERROS ) {
+			user.setStatus(GameStatus.NAO_JOGANDO); 
+			userRepository.save(user);
+		}
+		
 		// prepara resposta
 		response.setMovie(movieService.getMovie(round.get().getIdFilmeA()));
 		response.setAcertou(round.get().isCorrectAnswer());
 		response.setOpcaoCorreta(round.get().getChoiceAnswer());
 		response.setPontuacao(user.getScore());
 		response.setErros(user.getContaadorErros());
-
+		response.setJogoFinalizado(user.getContaadorErros() == MAXIMO_ERROS );
+		
 		return response;
 	}
 

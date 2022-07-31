@@ -6,14 +6,24 @@ import com.mycompany.models.enums.Choice;
 public class RoundPlayResponse {
 
 	private boolean acertou;
-	
+
 	private double pontuacao;
-	
+
 	private int erros;
-	
+
 	private Choice opcaoCorreta;
-	
+
 	private Movie movie;
+
+	private boolean jogoFinalizado;
+
+	public boolean isJogoFinalizado() {
+		return jogoFinalizado;
+	}
+
+	public void setJogoFinalizado(boolean jogoFinalizado) {
+		this.jogoFinalizado = jogoFinalizado;
+	}
 
 	public boolean isAcertou() {
 		return acertou;
@@ -54,7 +64,5 @@ public class RoundPlayResponse {
 	public void setOpcaoCorreta(Choice opcaoCorreta) {
 		this.opcaoCorreta = opcaoCorreta;
 	}
-	
-	
-	
+
 }
