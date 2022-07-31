@@ -91,7 +91,7 @@ public class GameServiceImpl {
 	 */
 	public RoundPlayResponse playRound(HttpServletRequest request, RoundPlayRequest roundPlayRequest) {
 		User user = getUser(request);
-		
+
 		RoundPlayResponse response = new RoundPlayResponse();
 
 		// recupera info do round
@@ -104,24 +104,25 @@ public class GameServiceImpl {
 		}
 
 		// valida round é do jogador
-		if ( !user.getId().equals(round.get().getUser().getId()) ) {
+		if (!user.getId().equals(round.get().getUser().getId())) {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
 					"Round não é do Jogador Logado! Informe corretamente o RoundID", null);
 		}
- 		
+
 		// ajustar resposta do jogador
 		round.get().setChoice(roundPlayRequest.getChoice());
-		
+
 		// ajustar pontuacao/erros do jogador
-		if ( round.get().isCorrectAnswer() ) {
+		if (round.get().isCorrectAnswer()) {
 			user.incrementarScore();
 		} else {
 			user.incrementarErros();
 		}
-		
+
 		// prepara resposta
-		response.setMovie(movieService.getMovie(round.get().getIdFilmeA()).get());
-		response.setAcertou(round.get().isCorrectAnswer() );
+		response.setMovie(movieService.getMovie(round.get().getIdFilmeA()));
+		response.setAcertou(round.get().isCorrectAnswer());
+		response.setOpcaoCorreta(round.get().getChoiceAnswer());
 		response.setPontuacao(user.getScore());
 		response.setErros(user.getContaadorErros());
 
@@ -144,21 +145,26 @@ public class GameServiceImpl {
 
 		checkJogadorComStatusJogando(user);
 		checkFinalGame(user);
-		checkRoundOpen(user);
-		
 
-		MovieRound movieRound = gerarMovieRoundByUser(user);
-
-		Round newRound = new Round();
-		newRound.setUser(user);
-		newRound.setChoice(Choice.X); // aguardando resposta jogador
-		newRound.setChoiceAnswer(melhorPontuacao(movieRound)); // conforme site de filmes
-		newRound.setIdFilmeA(movieRound.getMovieA().getImdbID());
-		newRound.setIdFilmeB(movieRound.getMovieB().getImdbID());
-		roundRepository.save(newRound);
-
+		Round round = roundRepository.findByUserAndChoice(user, Choice.X).orElse(null);
 		RoundReadResponse response = new RoundReadResponse();
-		response.setRoundID(newRound.getId());
+		MovieRound movieRound = new MovieRound();
+
+		if (round == null) {
+			movieRound = gerarMovieRoundByUser(user);
+			round = new Round();
+			round.setUser(user);
+			round.setChoice(Choice.X); // aguardando resposta jogador
+			round.setChoiceAnswer(melhorPontuacao(movieRound)); // conforme site de filmes
+			round.setIdFilmeA(movieRound.getMovieA().getImdbID());
+			round.setIdFilmeB(movieRound.getMovieB().getImdbID());
+			roundRepository.save(round);
+		} else {
+			movieRound.setMovieA(movieService.getMovie(round.getIdFilmeA()));
+			movieRound.setMovieB(movieService.getMovie(round.getIdFilmeB()));
+		}
+
+		response.setRoundID(round.getId());
 		response.setMovieRound(movieRound);
 
 		return response;
@@ -247,16 +253,9 @@ public class GameServiceImpl {
 					"Final de Jogo! Escolha iniciar Game para jogar novamente");
 		}
 	}
-	
-	private void checkRoundOpen(User user) {
-		List<Round> rounds = roundRepository.findByUserAndChoice(user,Choice.X); // round em andamento
-		if ( !rounds.isEmpty() ) {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, String.format("RoundID: %n em andamento",rounds.get(0).getId()) );
-		}
-	}
-	
+
 	private Choice melhorPontuacao(MovieRound movieRound) {
-		if ( movieRound.getMovieA().getPontuacao()> movieRound.getMovieB().getPontuacao() ) {
+		if (movieRound.getMovieA().getPontuacao() > movieRound.getMovieB().getPontuacao()) {
 			return Choice.A;
 		} else {
 			return Choice.B;

@@ -73,8 +73,8 @@ public class MovieServiceImpl {
 	 * @param id
 	 * @return
 	 */
-	public  Optional<Movie> getMovie(String id) {
-		return movies.stream().filter(f->f.getImdbID()==id).findFirst();
+	public Movie getMovie(String id) {
+		return movies.stream().filter(f->f.getImdbID()==id).findFirst().orElse(null);
 	}
 	
 	/**

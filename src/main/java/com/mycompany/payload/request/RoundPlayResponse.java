@@ -1,6 +1,7 @@
 package com.mycompany.payload.request;
 
 import com.mycompany.models.dto.Movie;
+import com.mycompany.models.enums.Choice;
 
 public class RoundPlayResponse {
 
@@ -9,6 +10,8 @@ public class RoundPlayResponse {
 	private double pontuacao;
 	
 	private int erros;
+	
+	private Choice opcaoCorreta;
 	
 	private Movie movie;
 
@@ -42,6 +45,14 @@ public class RoundPlayResponse {
 
 	public void setMovie(Movie movie) {
 		this.movie = movie;
+	}
+
+	public Choice getOpcaoCorreta() {
+		return opcaoCorreta;
+	}
+
+	public void setOpcaoCorreta(Choice opcaoCorreta) {
+		this.opcaoCorreta = opcaoCorreta;
 	}
 	
 	

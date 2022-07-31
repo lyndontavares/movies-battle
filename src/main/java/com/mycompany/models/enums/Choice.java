@@ -1,5 +1,11 @@
 package com.mycompany.models.enums;
 
+/**
+ * Choice
+ * 
+ * @description A=Filme A selecionado, B=Filme B selecionadeo, X=Aguardando seleção do jogador
+ *
+ */
 public enum Choice {
-	X, A, B
+	A, B, X
 }

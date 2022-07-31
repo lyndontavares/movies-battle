@@ -98,11 +98,11 @@ public class User {
 	}
 	
 	public void incrementarScore() {
-		score += score;
+		score += 1;
 	}
 	
 	public void incrementarErros() {
-		contaadorErros += contaadorErros;
+		contaadorErros += 1;
 	}
 
 }
