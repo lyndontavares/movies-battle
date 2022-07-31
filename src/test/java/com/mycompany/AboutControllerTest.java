@@ -12,10 +12,9 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import com.mycompany.payload.request.SignupRequest;
-
+ 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-public class AuthControllerTest {
+public class AboutControllerTest {
 
 	RestTemplate testRestTemplate = new RestTemplate();
 
@@ -23,16 +22,12 @@ public class AuthControllerTest {
 	int randomServerPort;
 
 	@Test
-	void teste_registrar_novojogador() throws URISyntaxException {
+	void teste_about_end_point() throws URISyntaxException {
+		URI uri = new URI("http://localhost:" + randomServerPort + "/api/info/about");
  
+		ResponseEntity<String> response = testRestTemplate.getForEntity(uri, String.class);
 
-		URI uri = new URI("http://localhost:" + randomServerPort + "/api/auth/signup");
-		SignupRequest request = new SignupRequest();
-		request.setUsername("Jogador 1");
-		request.setPassword("123456");
-		ResponseEntity<String> response = testRestTemplate.postForEntity(uri, request, String.class);
-
-		String expectedMessage = "Jogador 1 registrado com sucesso!";
+		String expectedMessage = "API REST";
 		String actualMessage =response.getBody();
 
 		assertTrue(actualMessage.contains(expectedMessage));

@@ -80,5 +80,5 @@ Está sob a licensa do MIT.
 
 ## Contato
 
-integraldominio@gmail.com
-https://www.linkedin.com/in/lyndon-tavares/
+* integraldominio@gmail.com
+* https://www.linkedin.com/in/lyndon-tavares/
