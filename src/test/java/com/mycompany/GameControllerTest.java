@@ -66,14 +66,14 @@ public class GameControllerTest {
 		// REGISTRO
 		URI uri = new URI("http://localhost:" + randomServerPort + "/api/auth/signup");
 		SignupRequest signupRequest = new SignupRequest();
-		signupRequest.setUsername("Jogador 2");
+		signupRequest.setUsername("Jogador 1000");
 		signupRequest.setPassword("123456");
 		testRestTemplate.postForEntity(uri, signupRequest, String.class);
 
 		// LOGIN
 		uri = new URI("http://localhost:" + randomServerPort + "/api/auth/signin");
 		LoginRequest loginRequest = new LoginRequest();
-		loginRequest.setUsername("Jogador 2");
+		loginRequest.setUsername("Jogador 1000");
 		loginRequest.setPassword("123456");
 		testRestTemplate.postForEntity(uri, loginRequest, String.class);
 
