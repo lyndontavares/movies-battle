@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Iterator;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -19,7 +20,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.mycompany.models.enums.Choice;
 import com.mycompany.payload.request.LoginRequest;
+import com.mycompany.payload.request.RoundPlayRequest;
 import com.mycompany.payload.request.SignupRequest;
 import com.mycompany.payload.response.RankingResponse;
 
@@ -53,7 +56,8 @@ public class GameControllerTest {
 	/**
 	 * IMPORTANTE:
 	 * 
-	 * Por usar JWT em Cookie e BD em memória, faz-se necessário, para acessar rotas com segurança:
+	 * Por usar JWT em Cookie e BD em memória, faz-se necessário, para acessar rotas
+	 * com segurança:
 	 * 
 	 *   1. Registrar novo jogador 
 	 *   2. Fazer LOGIN 
@@ -71,6 +75,7 @@ public class GameControllerTest {
 		signupRequest.setPassword("123456");
 		testRestTemplate.postForEntity(uri, signupRequest, String.class);
 
+		
 		// LOGIN
 		uri = new URI("http://localhost:" + randomServerPort + "/api/auth/signin");
 		LoginRequest loginRequest = new LoginRequest();
@@ -81,8 +86,9 @@ public class GameControllerTest {
 		// COOKIE
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Cookie",
-				"mycompany=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2dhZG9yIDIiLCJpYXQiOjE2NTkzMTA2NTIsImV4cCI6MTY1OTM5NzA1Mn0.yqrCajP8EwEHf-OQPQwcoJNCFw6zcCu8whGNHj1k-hviK5o4Lr_jDwnXXI2z-N-tjijtv_A8WaP8YxDlY6oLmQ; Path=/api; Max-Age=86400; Expires=Mon, 01 Aug 2022 23:39:22 GMT; HttpOnly");
+				"mycompany=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2dhZG9yIDEwMDAiLCJpYXQiOjE2NTkzMjA4OTQsImV4cCI6MTY1OTQwNzI5NH0.5ECZGvdTuORhcDDRzvc5cuUTb3f7LQSJHWvmWsOxqfuvuetwPG1uTH9ko37lIje6wEDy82kjyfvhpBBo7yPxsg; Path=/api; Max-Age=86400; Expires=Tue, 02 Aug 2022 02:30:15 GMT; HttpOnly");
 
+		
 		// INICAR GAME
 		uri = new URI("http://localhost:" + randomServerPort + "/api/game/start");
 		ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.POST,
@@ -93,10 +99,43 @@ public class GameControllerTest {
 
 		assertTrue(actualMessage.contains(expectedMessage));
 
+		
+		//ITERAR 3 VEZES
+		for (int i = 1; i <=3 ; i++) {
+			
+		 		
+				// PEGAR QUIZZ DA RODADA
+				uri = new URI("http://localhost:" + randomServerPort + "/api/game/play");
+				response = testRestTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<String>(headers), String.class);
+		
+				expectedMessage = "roundID";
+				actualMessage = response.getBody();
+		
+				assertTrue(actualMessage.contains(expectedMessage));
+		
+				
+				// ENVIAR RESPOSTA DA RODADA
+				RoundPlayRequest roundPlayRequest = new RoundPlayRequest();
+				
+				roundPlayRequest.setRound(1L);
+				roundPlayRequest.setChoice(Choice.A);
+				
+				HttpEntity<RoundPlayRequest> requestEntity = new HttpEntity<RoundPlayRequest>(roundPlayRequest, headers);
+		
+				uri = new URI("http://localhost:" + randomServerPort + "/api/game/play");
+				response = testRestTemplate.exchange(uri, HttpMethod.POST, requestEntity, String.class);
+				
+				expectedMessage = "acertou";
+				actualMessage = response.getBody();
+		
+				assertTrue(actualMessage.contains(expectedMessage));
+		
+		}
+		
+		
 		// FINALIZAR GAME
 		uri = new URI("http://localhost:" + randomServerPort + "/api/game/finish");
-		response = testRestTemplate.exchange(uri, HttpMethod.POST,
-				new HttpEntity<String>(headers), String.class);
+		response = testRestTemplate.exchange(uri, HttpMethod.POST, new HttpEntity<String>(headers), String.class);
 
 		expectedMessage = "Game Finalizado!";
 		actualMessage = response.getBody();
