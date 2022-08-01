@@ -51,47 +51,54 @@ public class GameControllerTest {
 	}
 
 	/**
-	 * IMPORTANTE: 
+	 * IMPORTANTE:
 	 * 
-	 * Por usar JWT em Cookie e BD em memória, faz-se necessário, para acessar rotas com segurança:
+	 * Por usar JWT em Cookie e BD em memória, faz-se necessário, para acessar rotas
+	 * com segurança:
 	 * 
-	 * 1. Registrar novo jogador
-	 * 2. Fazer LOGIN
-	 * 3. Injetar COOKIE no REQUEST
-	 *   
+	 * 1. Registrar novo jogador 2. Fazer LOGIN 3. Injetar COOKIE no REQUEST
+	 * 
 	 */
 	@Test
 	@Order(2)
 	void teste_iniciar_game() throws URISyntaxException {
-		
-		
-		//REGISTRO
+
+		// REGISTRO
 		URI uri = new URI("http://localhost:" + randomServerPort + "/api/auth/signup");
 		SignupRequest signupRequest = new SignupRequest();
 		signupRequest.setUsername("Jogador 2");
 		signupRequest.setPassword("123456");
 		testRestTemplate.postForEntity(uri, signupRequest, String.class);
-		
-		//LOGIN
+
+		// LOGIN
 		uri = new URI("http://localhost:" + randomServerPort + "/api/auth/signin");
 		LoginRequest loginRequest = new LoginRequest();
 		loginRequest.setUsername("Jogador 2");
 		loginRequest.setPassword("123456");
 		testRestTemplate.postForEntity(uri, loginRequest, String.class);
 
-		//COOKIE 
+		// COOKIE
 		HttpHeaders headers = new HttpHeaders();
 		headers.add("Cookie",
 				"mycompany=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2dhZG9yIDIiLCJpYXQiOjE2NTkzMTA2NTIsImV4cCI6MTY1OTM5NzA1Mn0.yqrCajP8EwEHf-OQPQwcoJNCFw6zcCu8whGNHj1k-hviK5o4Lr_jDwnXXI2z-N-tjijtv_A8WaP8YxDlY6oLmQ; Path=/api; Max-Age=86400; Expires=Mon, 01 Aug 2022 23:39:22 GMT; HttpOnly");
 
+		// INICAR GAME
 		uri = new URI("http://localhost:" + randomServerPort + "/api/game/start");
-
-		//REQUEST
 		ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.POST,
 				new HttpEntity<String>(headers), String.class);
 
 		String expectedMessage = "Game Iniciado!";
 		String actualMessage = response.getBody();
+
+		assertTrue(actualMessage.contains(expectedMessage));
+
+		// FINALIZAR GAME
+		uri = new URI("http://localhost:" + randomServerPort + "/api/game/finish");
+		response = testRestTemplate.exchange(uri, HttpMethod.POST,
+				new HttpEntity<String>(headers), String.class);
+
+		expectedMessage = "Game Finalizado!";
+		actualMessage = response.getBody();
 
 		assertTrue(actualMessage.contains(expectedMessage));
 

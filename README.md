@@ -91,7 +91,7 @@ Com a aplicação em execução, Utilize a interface do Swagger (http://localhos
 
 [POST] /api/game/start (iniciar game)
 [GET] /api/game/play (pegar rodada(round))
-[POST] /api/game/play  (encamnhar resposta da rodada(round))
+[POST] /api/game/play  (encaminhar resposta da rodada(round))
 
 [POST] /api/game/finish (finalizar game)
 [POST] /api/game/ranking (consultar ranking)
