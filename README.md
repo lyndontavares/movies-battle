@@ -58,7 +58,7 @@ mvn spring-boot:run
 
 ## Documentação da API com Swagger
 
-Abra no browser:
+Abrir no browser:
 
 ```
 http://localhost:3000/swagger-ui.html
@@ -74,7 +74,7 @@ Para executar teste de cobertura:
 mvn clean verify
 ```
 
-Abra no browser
+Abrir no browser
 
 ```
 \target\site\jacoco\index.html
