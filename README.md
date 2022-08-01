@@ -64,7 +64,9 @@ Abra no browser:
 http://localhost:3000/swagger-ui.html
 ```
 
-## Teste de Cobertura
+![](assets/01.PNG)
+
+## Coverage
 
 Para executar teste de cobertura:
 
@@ -77,6 +79,10 @@ Abra no browser
 ```
 \target\site\jacoco\index.html
 ```
+
+![](assets/04.PNG)
+
+
 
 ## Roteiro de teste endpoints da API
 
@@ -98,8 +104,6 @@ Com a aplicação em execução, Utilize a interface do Swagger (http://localhos
 [POST] /api/auth/signout (desconectar)
 
 ```
-
-
 
 ## Aviso
 
