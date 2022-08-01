@@ -125,8 +125,8 @@ public class GameServiceImpl {
 		// verifica máximo de erros para finaliza game
 		if ( user.getContaadorErros() == MAXIMO_ERROS ) {
 			user.setStatus(GameStatus.NAO_JOGANDO); 
-			userRepository.save(user);
 		}
+		userRepository.save(user);
 		
 		// prepara resposta
 		response.setMovie(movieService.getMovie(round.get().getIdFilmeA()));

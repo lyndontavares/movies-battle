@@ -100,8 +100,8 @@ public class GameControllerTest {
 		assertTrue(actualMessage.contains(expectedMessage));
 
 		
-		//ITERAR 3 VEZES
-		for (int i = 1; i <=3 ; i++) {
+		//ITERAR  
+		for (int i = 1; i <=10 ; i++) {
 			
 		 		
 				// PEGAR QUIZZ DA RODADA
@@ -116,9 +116,8 @@ public class GameControllerTest {
 				
 				// ENVIAR RESPOSTA DA RODADA
 				RoundPlayRequest roundPlayRequest = new RoundPlayRequest();
-				
 				roundPlayRequest.setRound(1L);
-				roundPlayRequest.setChoice(Choice.A);
+				roundPlayRequest.setChoice(Choice.B);
 				
 				HttpEntity<RoundPlayRequest> requestEntity = new HttpEntity<RoundPlayRequest>(roundPlayRequest, headers);
 		
@@ -141,6 +140,19 @@ public class GameControllerTest {
 		actualMessage = response.getBody();
 
 		assertTrue(actualMessage.contains(expectedMessage));
+		
+	 
+		
+		// RANKING
+		uri = new URI("http://localhost:" + randomServerPort + "/api/game/ranking");
+		response = testRestTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<String>(headers), String.class);
+
+		expectedMessage = "pontuacao";
+		actualMessage = response.getBody();
+
+		assertTrue(actualMessage.contains(expectedMessage));
+		
+		
 
 	}
 
