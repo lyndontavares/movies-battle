@@ -53,10 +53,11 @@ public class GameControllerTest {
 	/**
 	 * IMPORTANTE:
 	 * 
-	 * Por usar JWT em Cookie e BD em memória, faz-se necessário, para acessar rotas
-	 * com segurança:
+	 * Por usar JWT em Cookie e BD em memória, faz-se necessário, para acessar rotas com segurança:
 	 * 
-	 * 1. Registrar novo jogador 2. Fazer LOGIN 3. Injetar COOKIE no REQUEST
+	 *   1. Registrar novo jogador 
+	 *   2. Fazer LOGIN 
+	 *   3. Injetar COOKIE no REQUEST
 	 * 
 	 */
 	@Test
