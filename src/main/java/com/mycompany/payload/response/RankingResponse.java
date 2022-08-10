@@ -20,6 +20,5 @@ public class RankingResponse {
 	public RankingResponse( ) {
 		ranking = new ArrayList<>();
 	}
-	 
-	
+
 }
