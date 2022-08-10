@@ -75,24 +75,15 @@ public class GameControllerTest {
 
 		// REGISTRO
 		URI uri = new URI("http://localhost:" + randomServerPort + "/api/auth/signup");
-		SignupRequest signupRequest = new SignupRequest();
-		signupRequest.setUsername("Jogador 1000");
-		signupRequest.setPassword("123456");
-		testRestTemplate.postForEntity(uri, signupRequest, String.class);
+		testRestTemplate.postForEntity(uri, newSignupRequest(), String.class);
 
-		
 		// LOGIN
 		uri = new URI("http://localhost:" + randomServerPort + "/api/auth/signin");
-		LoginRequest loginRequest = new LoginRequest();
-		loginRequest.setUsername("Jogador 1000");
-		loginRequest.setPassword("123456");
-		testRestTemplate.postForEntity(uri, loginRequest, String.class);
+		testRestTemplate.postForEntity(uri, newLoginRequest(), String.class);
 
 		// COOKIE
 		HttpHeaders headers = new HttpHeaders();
-		
 		String cookie = jwtUtils.generateJwtCookie(new UserDetailsImpl("Jogador 1000")).toString();
-		
 		headers.add( "Cookie", cookie);
 
 		// INICAR GAME
@@ -107,7 +98,7 @@ public class GameControllerTest {
 
 		
 		//ITERAR  
-		for (int i = 1; i <=20 ; i++) {
+		for (int i = 1; i <=11 ; i++) {
 			
 		 		
 				// PEGAR QUIZZ DA RODADA
@@ -160,5 +151,48 @@ public class GameControllerTest {
 		assertTrue( res.getBody().getRanking().size()>0);
 
 	}
+	
+	@Test
+	@Order(3)
+	void teste_excecoes_game() throws URISyntaxException {
+
+ 		// COOKIE
+ 		HttpHeaders headers = new HttpHeaders();
+ 		String cookie = jwtUtils.generateJwtCookie(new UserDetailsImpl("Jogador 1000")).toString();
+ 		headers.add( "Cookie", cookie);
+		
+		// ENVIAR RESPOSTA INVALIDA
+		RoundPlayRequest roundPlayRequest = new RoundPlayRequest();
+		roundPlayRequest.setRound(9999L);
+		roundPlayRequest.setChoice(Choice.A);
+		
+		HttpEntity<RoundPlayRequest> requestEntity = new HttpEntity<RoundPlayRequest>(roundPlayRequest, headers);
+		URI uri = new URI("http://localhost:" + randomServerPort + "/api/game/play");
+		
+		Exception exception = assertThrows(Exception.class, () -> {
+			testRestTemplate.exchange(uri, HttpMethod.POST, requestEntity, String.class);
+		});
+		
+		String actualMessage = exception.getMessage();
+		String expectedMessage = "Round não cadastrado";
+		assertTrue(actualMessage.contains(expectedMessage));
+		
+	}
+	
+	
+	private SignupRequest newSignupRequest() {
+		SignupRequest signupRequest = new SignupRequest();
+		signupRequest.setUsername("Jogador 1000");
+		signupRequest.setPassword("123456");
+		return signupRequest;
+	}
+	
+	private LoginRequest newLoginRequest () {
+		LoginRequest loginRequest = new LoginRequest();
+		loginRequest.setUsername("Jogador 1000");
+		loginRequest.setPassword("123456");
+		return loginRequest;
+	}
+	
 
 }
