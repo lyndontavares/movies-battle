@@ -22,6 +22,9 @@ public class UserDetailsImpl implements UserDetails {
 	
 	private GameStatus status;
 	
+	public UserDetailsImpl( String username) {
+		this.username = username;
+	}
 
 	public UserDetailsImpl(Long id, String username, String password, Double score, GameStatus status  ) {
 		this.id = id;

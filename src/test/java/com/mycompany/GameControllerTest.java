@@ -5,12 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.List;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -25,6 +25,8 @@ import com.mycompany.payload.request.LoginRequest;
 import com.mycompany.payload.request.RoundPlayRequest;
 import com.mycompany.payload.request.SignupRequest;
 import com.mycompany.payload.response.RankingResponse;
+import com.mycompany.security.jwt.JwtUtils;
+import com.mycompany.security.services.UserDetailsImpl;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(OrderAnnotation.class)
@@ -34,6 +36,9 @@ public class GameControllerTest {
 
 	@LocalServerPort
 	int randomServerPort;
+	
+	@Autowired
+	JwtUtils jwtUtils;
 
 	@Test
 	@Order(1)
@@ -85,10 +90,11 @@ public class GameControllerTest {
 
 		// COOKIE
 		HttpHeaders headers = new HttpHeaders();
-		headers.add("Cookie",
-				"mycompany=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJKb2dhZG9yIDEwMDAiLCJpYXQiOjE2NTkzMjA4OTQsImV4cCI6MTY1OTQwNzI5NH0.5ECZGvdTuORhcDDRzvc5cuUTb3f7LQSJHWvmWsOxqfuvuetwPG1uTH9ko37lIje6wEDy82kjyfvhpBBo7yPxsg; Path=/api; Max-Age=86400; Expires=Tue, 02 Aug 2022 02:30:15 GMT; HttpOnly");
-
 		
+		String cookie = jwtUtils.generateJwtCookie(new UserDetailsImpl("Jogador 1000")).toString();
+		
+		headers.add( "Cookie", cookie);
+
 		// INICAR GAME
 		uri = new URI("http://localhost:" + randomServerPort + "/api/game/start");
 		ResponseEntity<String> response = testRestTemplate.exchange(uri, HttpMethod.POST,
