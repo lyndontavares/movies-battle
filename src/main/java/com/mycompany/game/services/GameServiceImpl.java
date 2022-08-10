@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.mycompany.models.Round;
 import com.mycompany.models.User;
 import com.mycompany.models.dto.MovieRound;
+import com.mycompany.models.dto.Ranking;
 import com.mycompany.models.enums.Choice;
 import com.mycompany.models.enums.GameStatus;
 import com.mycompany.payload.request.RoundPlayRequest;
@@ -186,14 +187,17 @@ public class GameServiceImpl {
 	 * @description Retorma rankings dos jogadores
 	 * @return
 	 */
-	public List<RankingResponse> ranking() {
+	public RankingResponse ranking() {
 
-		List<RankingResponse> lista = new ArrayList<>();
+		RankingResponse rank = new RankingResponse();
 
 		userRepository.findAll(Sort.by(Sort.Direction.ASC, "score")).forEach(u -> {
-			lista.add(new RankingResponse(u.getUsername(), u.getScore()));
+			Ranking r = new Ranking();
+			r.setNome(u.getUsername());
+			r.setPontuacao( u.getScore());
+			rank.getRanking().add(r);
 		});
-		return lista;
+		return rank;
 	}
 
 	/**

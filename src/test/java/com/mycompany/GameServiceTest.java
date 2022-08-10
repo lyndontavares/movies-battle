@@ -43,9 +43,9 @@ public class GameServiceTest {
 	
 		BDDMockito.when(userRepository.findAll(Sort.by(Sort.Direction.ASC, "score"))).thenReturn(usersFake());
 		
-		List<RankingResponse> ranking = gameService.ranking();
+		RankingResponse ranking = gameService.ranking();
 
-		assertEquals(ranking.size(), 2);
+		assertEquals(ranking.getRanking().size(), 2);
 
 	}
 

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Iterator;
+import java.util.List;
 
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -145,10 +145,11 @@ public class GameControllerTest {
 		
 		// RANKING
 		uri = new URI("http://localhost:" + randomServerPort + "/api/game/ranking");
-		response = testRestTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<String>(headers), String.class);
+		
+		ResponseEntity<RankingResponse> res = testRestTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<String>(headers), RankingResponse.class);
 
-		expectedMessage = "pontuacao";
-		actualMessage = response.getBody();
+		expectedMessage = "Jogador 1000";
+		actualMessage = res.getBody().getRanking().get(0).getNome();
 
 		assertTrue(actualMessage.contains(expectedMessage));
 		

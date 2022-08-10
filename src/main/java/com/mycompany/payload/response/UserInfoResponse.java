@@ -3,6 +3,10 @@ package com.mycompany.payload.response;
 public class UserInfoResponse {
 	private Long id;
 	private String username;
+	
+	public UserInfoResponse() {
+		
+	}
 
 	public UserInfoResponse(Long id, String username) {
 		this.id = id;
@@ -24,5 +28,9 @@ public class UserInfoResponse {
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	
+	
  
+	
+	
 }

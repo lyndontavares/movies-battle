@@ -18,6 +18,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.mycompany.payload.request.LoginRequest;
 import com.mycompany.payload.request.SignupRequest;
+import com.mycompany.payload.response.UserInfoResponse;
 
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(OrderAnnotation.class)
@@ -55,10 +56,10 @@ public class AuthControllerTest {
 		LoginRequest request = new LoginRequest();
 		request.setUsername("Jogador 1");
 		request.setPassword("123456");
-		ResponseEntity<String> response = testRestTemplate.postForEntity(uri, request, String.class);
+		ResponseEntity<UserInfoResponse> response = testRestTemplate.postForEntity(uri, request, UserInfoResponse.class);
 
 		String expectedMessage = "Jogador 1";
-		String actualMessage =response.getBody();
+		String actualMessage =response.getBody().getUsername();
 
 		assertTrue(actualMessage.contains(expectedMessage));
 

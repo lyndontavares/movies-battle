@@ -1,33 +1,25 @@
 package com.mycompany.payload.response;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.mycompany.models.dto.Ranking;
+
 public class RankingResponse {
 	
-	private String nome;
+	private List<Ranking> ranking;
 
-	private Double pontuacao;
-
-	public String getNome() {
-		return nome;
+	public List<Ranking> getRanking() {
+		return ranking;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setRanking(List<Ranking> ranking) {
+		this.ranking = ranking;
 	}
 
-	public Double getPontuacao() {
-		return pontuacao;
+	public RankingResponse( ) {
+		ranking = new ArrayList<>();
 	}
-
-	public void setPontuacao(Double pontuacao) {
-		this.pontuacao = pontuacao;
-	}
-
-	public RankingResponse(String nome, Double pontuacao) {
-		super();
-		this.nome = nome;
-		this.pontuacao = pontuacao;
-	}
-	
-	
+	 
 	
 }
